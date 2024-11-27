@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # Starting URL and visited pages set
-start_url = "https://www.policyaddress.gov.hk/"
+start_url = "https://www.info.gov.hk/"
 visited_pages = set()
 
 
@@ -36,7 +36,7 @@ def crawl(url):
     print(soup.find_all("a", href=True))
     for link in soup.find_all("a", href=True):
         next_url = urljoin(url, link["href"])
-        if next_url.startswith("https://www.policyaddress.gov.hk/"):
+        if next_url.startswith("https://www.info.gov.hk/"):
             time.sleep(1)  # polite crawling by pausing between requests
             crawl(next_url)
 
