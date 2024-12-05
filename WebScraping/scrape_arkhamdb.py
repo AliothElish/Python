@@ -14,9 +14,6 @@ TABOO_DATE = datetime.strptime("2022-08-26", "%Y-%m-%d").replace(tzinfo=timezone
 current_time = datetime.now(timezone.utc)
 
 
-# start = datetime.strptime("2024-12-04", "%Y-%m-%d")
-# end = datetime.now()
-# print((end - start).days)
 def fetch_deck_data(max_pages=10):
     """Fetch all deck data up to max_pages."""
     results = []
