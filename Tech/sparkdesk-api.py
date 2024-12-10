@@ -1,0 +1,11 @@
+from sparkdesk_web.core import SparkWeb
+
+sparkWeb = SparkWeb(
+    cookie="JSESSIONID=D17B41F7D0FF346E5B04B869E6FA6517; di_c_mti=54cf208c-93eb-66ca-956d-a722ee347cb5; d_d_app_ver=1.4.0; daas_st={%22sdk_ver%22:%221.3.9%22%2C%22status%22:%220%22}; appid=150b4dfebe; d_d_ci=9902c7b9-c1f7-67c6-ac69-cfba7267b5b2; ssoSessionId=b816f9fc-9c79-483f-a65c-81ebec168840; account_id=19700035038; ui=19700035038; _uetsid=615b5370b62811ef88fe8b8b0cf27553; _uetvid=615b5aa0b62811ef94cee192c0f86cfc; clientType=2; gt_local_id=jWHnEQyXPlPCQ8jdaZcaTbhc4uctIPimtGPQX9pn4tvd2a1UuNMIwA==",
+    fd="664801",
+    GtToken="RzAwAGP6va89p8mqnrQgCgu2TH21RghvZDV2tHZSPAsRpzDI1qi/pFNITOq7HOmE5nBj6LbwsjB2pd+H1yKb2m0wlj2aMhqUygJ4BoJPpPcuoKKMEoUGduH2w/+ThgjjRydOboSmwp8ao/w2P4Lhlw+l3gBCUnRM0P+U+QVkduvElrNEkdCwV9dS7Mzl1SFAGwDsaLO6LvRJ+/aw6leuivrxlPzXNhfMdhK3SEzOf1a/vn9J+Z/wNxgdLY1TFnsyH9nzDSn66jB0Cjpbi/NZFcAqQ1TLi/a1+4+6ZnKcw4ao7w9OaLrDymLzfoWsZwWjOkBaeIYSmmwrQq8fIV6Xk7msLg4ua7vzUIX48OFeT6VTJCLK5/MiyeveW8lYlG/VUS3WxHFRo0xbFFMA7p/M5AMnbc7FVeyEE4a3RoAVV3J67UB1XAnX6WVNZ0bYu9ey6/a1ktt+CNBsBQZ3xdSYygbIXg81ArZRHWrdMNtYy1E0jsdDSkxLRpzKvaACvQLRkqNQXhFXUfKQueTZaK/PtshMqfgyPukhvU5Imi6QEXStXd5Qmgo3sThgje18IMIlwRM1fzjMDxr64LJ4ULt76/yF8dte5x/favPVBPGPpTSKvDZzBBctdbsFDOeRDel3KGQ+mKppudEYvSKy6LATEMnUlpbRTWLFZEOxTtpm5tXOHMcGYP3Ovr+tzgHweTDL6V/MR4hidW7mz6cps7LquKWi26uLJAhHEhhx00fBkBLj+Qo94RowX9oSzGH7N6aiRnqPXn6/MIpraUmCukPWtRw8kWcbZDRVhkYly9S8bMHoz/0udwQVWW/Kixt64gcx0SlTQrkwpXsvNkmPwpvKXpLZIEFCvVXRWtUtD0nLQj6zdCtAG8GWFjuTMBwz3mpaq+3RkwqhycCYMi/x2cSrOPLdGjdkkM5wFMQbhTvG0Qi41ikgkonOS/J6JV50RJK/RnY7uulcxt8UPlL0Ur1aTorivkLhywliY+nmlp4mbSdaKL7gIH4iMFOAlJKfI+iJFHtB0bxKDqWw0+XgaWy3kBpQI/CNs1VBImJQVQGrUcMoiB1pgQ==",
+)
+
+chat = sparkWeb.create_continuous_chat()
+chat.chat("肇庆是一个什么样的城市")
+chat.chat("刚才你说的是哪个城市？")
