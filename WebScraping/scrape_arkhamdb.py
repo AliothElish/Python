@@ -50,20 +50,22 @@ def parse_page(html):
     all_times = soup.findAll("time")
 
     results = []
-    for image, name, like, time_element in zip(all_images, all_names, all_likes, all_times):
+    for image, name, like, time_element in zip(
+        all_images, all_names, all_likes, all_times
+    ):
         time_datetime = datetime.fromisoformat(time_element["datetime"])
         if time_datetime < TABOO_DATE:
             continue
 
         days_difference = (current_time - time_datetime).days + 1
-        if days_difference < 15:  # Filter decks with less than 14 days of existence
-            continue
+        # if days_difference < 15:  # Filter decks with less than 14 days of existence
+        #     continue
 
         image_src = image["src"].split("/")[-1].split(".")[0]
         name_string = name.string
         like_num = int(like.find("span", attrs={"class": "num"}).string)
 
-        daily_likes = like_num / days_difference
+        daily_likes = like_num**2 / days_difference
 
         results.append(
             {
