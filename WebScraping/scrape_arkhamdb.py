@@ -1,4 +1,5 @@
 import asyncio
+import time
 from datetime import datetime, timezone
 
 import aiohttp
@@ -49,8 +50,8 @@ def parse_page(html):
     all_times = soup.findAll("time")
 
     results = []
-    for image, name, like, time in zip(all_images, all_names, all_likes, all_times):
-        time_datetime = datetime.fromisoformat(time["datetime"])
+    for image, name, like, time_element in zip(all_images, all_names, all_likes, all_times):
+        time_datetime = datetime.fromisoformat(time_element["datetime"])
         if time_datetime < TABOO_DATE:
             continue
 
@@ -103,9 +104,11 @@ def save_to_csv(decks, filename="arkhamdb_top_decks.csv"):
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     max_pages = 1037
     # Fetch and process data
     all_decks = asyncio.run(fetch_deck_data_async(max_pages=max_pages))
     filtered_decks = filter_top_10_per_id(all_decks)
     save_to_csv(filtered_decks)
     print(f"Saved {len(filtered_decks)} decks to CSV.")
+    print(f"Run time: {time.time() - start_time} seconds")
