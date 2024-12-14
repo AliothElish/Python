@@ -17,11 +17,13 @@ current_time = datetime.now(timezone.utc)
 async def fetch_page(session, page_num):
     """Fetch a single page asynchronously."""
     url = f"{DECKLISTS_URL}/{page_num + 1}"
+    print(f"Fetching page {page_num + 1}...")
     try:
         async with session.get(url, headers=HEADERS) as response:
             if response.status != 200:
                 print(f"Failed to fetch page {page_num + 1}: {response.status}")
                 return None
+            print(f"Page {page_num + 1} obtained.")
             return await response.text()
     except Exception as e:
         print(f"Error fetching page {page_num + 1}: {e}")
