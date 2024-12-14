@@ -81,7 +81,7 @@ def save_to_csv(decks, filename="arkhamdb_top_decks.csv"):
 
 if __name__ == "__main__":
     # Fetch and process data
-    all_decks = fetch_deck_data(max_pages=1033)
+    all_decks = fetch_deck_data(max_pages=1037)
     filtered_decks = filter_top_10_per_id(all_decks)
     save_to_csv(filtered_decks)
     print(f"Saved {len(filtered_decks)} decks to CSV.")
