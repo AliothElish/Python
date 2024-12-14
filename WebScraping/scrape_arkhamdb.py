@@ -58,8 +58,8 @@ def parse_page(html):
             continue
 
         days_difference = (current_time - time_datetime).days + 1
-        # if days_difference < 15:  # Filter decks with less than 14 days of existence
-        #     continue
+        if days_difference < 15:  # Filter decks with less than 14 days of existence
+            continue
 
         image_src = image["src"].split("/")[-1].split(".")[0]
         name_string = name.string
