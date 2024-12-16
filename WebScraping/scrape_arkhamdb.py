@@ -107,7 +107,7 @@ def save_to_csv(decks, filename="arkhamdb_top_decks.csv"):
 
 if __name__ == "__main__":
     start_time = time.time()
-    max_pages = 1037
+    max_pages = 1038
     # Fetch and process data
     all_decks = asyncio.run(fetch_deck_data_async(max_pages=max_pages))
     filtered_decks = filter_top_10_per_id(all_decks)
