@@ -1,4 +1,5 @@
 import asyncio
+import json
 import time
 from datetime import datetime, timezone
 
@@ -54,26 +55,23 @@ def parse_page(html):
         all_images, all_names, all_likes, all_times
     ):
         time_datetime = datetime.fromisoformat(time_element["datetime"])
-        if time_datetime < TABOO_DATE:
-            continue
+        # if time_datetime < TABOO_DATE:
+        #     continue
 
-        days_difference = (current_time - time_datetime).days + 1
-        if days_difference < 15:  # Filter decks with less than 14 days of existence
-            continue
+        days_difference = (current_time - time_datetime).days
+        # if days_difference < 15:  # Filter decks with less than 14 days of existence
+        #     continue
 
         image_src = image["src"].split("/")[-1].split(".")[0]
         name_string = name.string
         like_num = int(like.find("span", attrs={"class": "num"}).string)
-
-        daily_likes = like_num**2 / days_difference
 
         results.append(
             {
                 "id": image_src,
                 "name": name_string,
                 "likes": like_num,
-                "daily_likes": daily_likes,
-                "created_at": time_datetime,
+                "created_at": time_datetime.isoformat(),
                 "url": BASE_URL + name["href"],
             }
         )
@@ -89,9 +87,33 @@ async def fetch_deck_data_async(max_pages=10):
     return results
 
 
+def save_raw_data(decks, filename="raw_deck_data.json"):
+    """Save raw decks data to a JSON file."""
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(decks, f, ensure_ascii=False, indent=4)
+
+
+def load_raw_data(filename="raw_deck_data.json"):
+    """Load raw decks data from a JSON file."""
+    with open(filename, "r", encoding="utf-8") as f:
+        data = json.load(f)
+        for item in data:
+            item["created_at"] = datetime.fromisoformat(item["created_at"])
+        return data
+
+
+def calculate_daily_likes(decks):
+    """Calculate daily_likes for each deck after loading."""
+    for deck in decks:
+        days_difference = (current_time - deck["created_at"]).days
+        deck["daily_likes"] = deck["likes"] / (days_difference + 1) ** 1
+    return decks
+
+
 def filter_top_10_per_id(decks):
     """Filter top 10 decks by daily_likes for each unique id using pandas."""
     df = pd.DataFrame(decks)
+
     # Sort by 'id' and 'daily_likes' descending
     df = df.sort_values(by=["id", "daily_likes"], ascending=[True, False])
 
@@ -107,10 +129,20 @@ def save_to_csv(decks, filename="arkhamdb_top_decks.csv"):
 
 if __name__ == "__main__":
     start_time = time.time()
+
+    # Step 1: Fetch and save raw data
     max_pages = 1038
-    # Fetch and process data
     all_decks = asyncio.run(fetch_deck_data_async(max_pages=max_pages))
-    filtered_decks = filter_top_10_per_id(all_decks)
+    save_raw_data(all_decks)
+    print("Saved raw deck data to 'raw_deck_data.json'")
+
+    # Step 2: Load raw data and process
+    raw_decks = load_raw_data()
+    decks_with_likes = calculate_daily_likes(raw_decks)
+
+    # Step 3: Filter and save top decks
+    filtered_decks = filter_top_10_per_id(decks_with_likes)
     save_to_csv(filtered_decks)
-    print(f"Saved {len(filtered_decks)} decks to CSV.")
+    print(f"Saved {len(filtered_decks)} decks to 'arkhamdb_top_decks.csv'.")
+
     print(f"Run time: {time.time() - start_time} seconds")
