@@ -58,7 +58,7 @@ def parse_page(html):
         # if time_datetime < TABOO_DATE:
         #     continue
 
-        days_difference = (current_time - time_datetime).days
+        # days_difference = (current_time - time_datetime).days
         # if days_difference < 15:  # Filter decks with less than 14 days of existence
         #     continue
 
@@ -69,9 +69,9 @@ def parse_page(html):
         results.append(
             {
                 "id": image_src,
-                "name": name_string,
-                "likes": like_num,
                 "created_at": time_datetime.isoformat(),
+                "likes": like_num,
+                "name": name_string,
                 "url": BASE_URL + name["href"],
             }
         )
@@ -106,7 +106,7 @@ def calculate_daily_likes(decks):
     """Calculate daily_likes for each deck after loading."""
     for deck in decks:
         days_difference = (current_time - deck["created_at"]).days
-        deck["daily_likes"] = deck["likes"] / (days_difference + 1) ** 1
+        deck["daily_likes"] = deck["likes"] / (days_difference + 82) ** 2.244
     return decks
 
 
@@ -130,11 +130,15 @@ def save_to_csv(decks, filename="arkhamdb_top_decks.csv"):
 if __name__ == "__main__":
     start_time = time.time()
 
-    # Step 1: Fetch and save raw data
-    max_pages = 1038
-    all_decks = asyncio.run(fetch_deck_data_async(max_pages=max_pages))
-    save_raw_data(all_decks)
-    print("Saved raw deck data to 'raw_deck_data.json'")
+    # # Step 1: Fetch and save raw data
+    # max_pages = 1038
+    # all_decks = asyncio.run(fetch_deck_data_async(max_pages=max_pages))
+
+    # # Sort decks by creation date
+    # all_decks_sorted = sorted(all_decks, key=lambda x: x["created_at"])
+
+    # save_raw_data(all_decks_sorted)
+    # print("Saved raw deck data to 'raw_deck_data.json'")
 
     # Step 2: Load raw data and process
     raw_decks = load_raw_data()
