@@ -130,23 +130,23 @@ def save_to_csv(decks, filename="arkhamdb_top_decks.csv"):
 if __name__ == "__main__":
     start_time = time.time()
 
-    # # Step 1: Fetch and save raw data
-    # max_pages = 1038
-    # all_decks = asyncio.run(fetch_deck_data_async(max_pages=max_pages))
+    # Step 1: Fetch and save raw data
+    max_pages = 1039
+    all_decks = asyncio.run(fetch_deck_data_async(max_pages=max_pages))
 
-    # # Sort decks by creation date
-    # all_decks_sorted = sorted(all_decks, key=lambda x: x["created_at"])
+    # Sort decks by creation date
+    all_decks_sorted = sorted(all_decks, key=lambda x: x["created_at"])
 
-    # save_raw_data(all_decks_sorted)
-    # print("Saved raw deck data to 'raw_deck_data.json'")
+    save_raw_data(all_decks_sorted)
+    print("Saved raw deck data to 'raw_deck_data.json'")
 
-    # Step 2: Load raw data and process
-    raw_decks = load_raw_data()
-    decks_with_likes = calculate_daily_likes(raw_decks)
+    # # Step 2: Load raw data and process
+    # raw_decks = load_raw_data()
+    # decks_with_likes = calculate_daily_likes(raw_decks)
 
-    # Step 3: Filter and save top decks
-    filtered_decks = filter_top_10_per_id(decks_with_likes)
-    save_to_csv(filtered_decks)
-    print(f"Saved {len(filtered_decks)} decks to 'arkhamdb_top_decks.csv'.")
+    # # Step 3: Filter and save top decks
+    # filtered_decks = filter_top_10_per_id(decks_with_likes)
+    # save_to_csv(filtered_decks)
+    # print(f"Saved {len(filtered_decks)} decks to 'arkhamdb_top_decks.csv'.")
 
-    print(f"Run time: {time.time() - start_time} seconds")
+    # print(f"Run time: {time.time() - start_time} seconds")
