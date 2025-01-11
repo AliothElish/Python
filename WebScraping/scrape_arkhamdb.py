@@ -106,7 +106,7 @@ def calculate_daily_likes(decks):
     """Calculate daily_likes for each deck after loading."""
     for deck in decks:
         days_difference = (current_time - deck["created_at"]).days
-        deck["daily_likes"] = deck["likes"] / (days_difference + 177) ** 2.5474
+        deck["daily_likes"] = deck["likes"] / (days_difference + 628) ** 4.205
     return decks
 
 
